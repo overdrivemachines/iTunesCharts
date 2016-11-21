@@ -16,5 +16,7 @@ itunes_result = JSON.parse(open("https://itunes.apple.com/us/rss/topsongs/limit=
 entries = itunes_result["feed"]["entry"]
 
 for i in 0..(count - 1)
+	song = Song.new
+	
 	puts entries[i]["category"]["attributes"]["im:id"]
 end
