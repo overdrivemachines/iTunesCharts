@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'open-uri'
+require 'json'
+
+count = 5
+
+# Get the json from Apple
+itunes_result = JSON.parse(open("https://itunes.apple.com/us/rss/topsongs/limit=#{count}/explicit=true/json").read)
+entries = itunes_result["feed"]["entry"]
+
+for i in 0..(count - 1)
+	puts entries[i]["category"]["attributes"]["im:id"]
+end
