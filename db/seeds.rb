@@ -23,6 +23,8 @@ for i in 0..(count - 1)
 	entry = entries[i]
 	# Check if Song already exists
 	if (!Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i))
+		puts "==================================="
+		puts "NEW SONG"
 		# New Song object
 		song = Song.new
 
@@ -39,19 +41,21 @@ for i in 0..(count - 1)
 		# Find Youtube video
 		query = entry["title"]["label"]
 		puts "Query: " + query
-		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=#{query}&type=video&key=#{youtube_api_key}").read) 
+		# youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=#{query}&type=video&key=#{youtube_api_key}").read) 
+		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=#{query}&type=video&key=#{youtube_api_key}").read) 
 		youtube_video = youtube_result["items"][0]
 		song.youtube_id = youtube_video["id"]["videoId"]		
 		puts "Youtube Video Title: " + youtube_video["snippet"]["title"]
 
 		# Get stats for the Youtube video
 		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/videos?id=#{song.youtube_id}&key=#{youtube_api_key}&part=snippet,statistics").read) 
-		song.views = youtube_result["items"]["statistics"]["viewCount"]
-		puts "Views = " + song.views
-		song.likes = youtube_result["items"]["statistics"]["likeCount"]
-		puts "Likes = " + song.likes
-		song.dislikes = youtube_result["items"]["statistics"]["dislikeCount"]
-		puts "Dislikes = " + song.dislikes
+		# puts youtube_result["items"][0]["statistics"].inspect
+		song.youtube_views = youtube_result["items"][0]["statistics"]["viewCount"].to_i
+		puts "Views = " + song.youtube_views.to_s
+		song.youtube_likes = youtube_result["items"][0]["statistics"]["likeCount"].to_i
+		puts "Likes = " + song.youtube_likes.to_s
+		song.youtube_dislikes = youtube_result["items"][0]["statistics"]["dislikeCount"].to_i
+		puts "Dislikes = " + song.youtube_dislikes.to_s
 
 
 		# Check if category exists
@@ -64,8 +68,25 @@ for i in 0..(count - 1)
 			category.save
 		end
 
+		puts "Category: " + song.category_id.to_s + " " + song.category.name
+
 		# Save new Song
 		song.save
+		puts "==================================="
+	else
+		# Song exists. Need to update stats.
+		puts "================="
+		puts "UPDATING SONG"
+		song = Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i)
+		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/videos?id=#{song.youtube_id}&key=#{youtube_api_key}&part=snippet,statistics").read)
+		puts "Youtube Video Title: " + youtube_result["items"][0]["snippet"]["title"]
+		song.youtube_views = youtube_result["items"][0]["statistics"]["viewCount"].to_i
+		puts "Views = " + song.youtube_views.to_s
+		song.youtube_likes = youtube_result["items"][0]["statistics"]["likeCount"].to_i
+		puts "Likes = " + song.youtube_likes.to_s
+		song.youtube_dislikes = youtube_result["items"][0]["statistics"]["dislikeCount"].to_i
+		puts "Dislikes = " + song.youtube_dislikes.to_s
+		puts "================="
 	end
 	
 end
