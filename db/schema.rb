@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121220424) do
+ActiveRecord::Schema.define(version: 20161121224303) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +28,10 @@ ActiveRecord::Schema.define(version: 20161121220424) do
     t.date     "release_date"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "youtube_id"
+    t.integer  "youtube_views"
+    t.integer  "youtube_likes"
+    t.integer  "youtube_dislikes"
     t.index ["category_id"], name: "index_songs_on_category_id"
   end
 
