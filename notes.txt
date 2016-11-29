@@ -1,0 +1,16 @@
+iTunes Top Songs
+================
+https://itunes.apple.com/us/rss/topsongs/limit=5/explicit=true/json
+
+Video Snippet, Content Details, Statistics and Status
+=====================================================
+https://www.googleapis.com/youtube/v3/videos?id=xdTs46gMlYc&key=AIzaSyBCX3JOJlNp76w6b38jwgY3ksQcwHl7F70&part=snippet,contentDetails,statistics,status
+
+Snippet and Statistics
+=======================
+https://www.googleapis.com/youtube/v3/videos?id=xdTs46gMlYc&key=AIzaSyBCX3JOJlNp76w6b38jwgY3ksQcwHl7F70&part=snippet,statistics
+https://www.googleapis.com/youtube/v3/videos?id=#{song.youtube_id}&key=#{youtube_api_key}&part=snippet,statistics
+
+Search Results
+==============
+https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=donald trump&type=video&key=AIzaSyBCX3JOJlNp76w6b38jwgY3ksQcwHl7F70
