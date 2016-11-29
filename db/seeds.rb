@@ -24,7 +24,7 @@ for i in 0..(count - 1)
 	# Check if Song already exists
 	if (!Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i))
 		puts "==================================="
-		puts "NEW SONG"
+		puts "POSITION #{i + 1}. NEW SONG"
 		# New Song object
 		song = Song.new
 
@@ -76,7 +76,7 @@ for i in 0..(count - 1)
 	else
 		# Song exists. Need to update stats.
 		puts "================="
-		puts "UPDATING SONG"
+		puts "POSITION #{i + 1}. UPDATING SONG"
 		song = Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i)
 		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/videos?id=#{song.youtube_id}&key=#{youtube_api_key}&part=snippet,statistics").read)
 		puts "Youtube Video Title: " + youtube_result["items"][0]["snippet"]["title"]
