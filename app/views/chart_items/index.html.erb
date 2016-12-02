@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Chart Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Song</th>
+      <th>Position</th>
+      <th>Top5</th>
+      <th>Top10</th>
+      <th>Top25</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chart_items.each do |chart_item| %>
+      <tr>
+        <td><%= chart_item.song %></td>
+        <td><%= chart_item.position %></td>
+        <td><%= chart_item.top5 %></td>
+        <td><%= chart_item.top10 %></td>
+        <td><%= chart_item.top25 %></td>
+        <td><%= link_to 'Show', chart_item %></td>
+        <td><%= link_to 'Edit', edit_chart_item_path(chart_item) %></td>
+        <td><%= link_to 'Destroy', chart_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chart Item', new_chart_item_path %>

@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121224303) do
+ActiveRecord::Schema.define(version: 20161130182728) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "chart_items", force: :cascade do |t|
+    t.integer  "song_id"
+    t.integer  "position",   limit: 1
+    t.integer  "top5",       limit: 2
+    t.integer  "top10",      limit: 2
+    t.integer  "top25",      limit: 2
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["song_id"], name: "index_chart_items_on_song_id"
   end
 
   create_table "songs", force: :cascade do |t|

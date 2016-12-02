@@ -1,0 +1,42 @@
+<%= form_for(chart_item) do |f| %>
+  <% if chart_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chart_item.errors.count, "error") %> prohibited this chart_item from being saved:</h2>
+
+      <ul>
+      <% chart_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :song_id %>
+    <%= f.text_field :song_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :position %>
+    <%= f.number_field :position %>
+  </div>
+
+  <div class="field">
+    <%= f.label :top5 %>
+    <%= f.number_field :top5 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :top10 %>
+    <%= f.number_field :top10 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :top25 %>
+    <%= f.number_field :top25 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
