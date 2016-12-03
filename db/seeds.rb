@@ -21,14 +21,15 @@ entries = itunes_result["feed"]["entry"]
 
 for i in 0..(count - 1)
 	entry = entries[i]
-	# Check if Song already exists
-	if (!Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i))
+	songID = entry["id"]["attributes"]["im:id"].to_i
+	# Check if Song already exists in Songs Table
+	if (!Song.find_by_id(songID))
 		puts "==================================="
 		puts "POSITION #{i + 1}. NEW SONG"
 		# New Song object
 		song = Song.new
 
-		song.id = entry["id"]["attributes"]["im:id"].to_i
+		song.id = songID
 		song.name = entry["im:name"]["label"]
 		song.artist = entry["im:artist"]["label"]
 		song.album = entry["im:collection"]["im:name"]["label"]
@@ -77,7 +78,7 @@ for i in 0..(count - 1)
 		# Song exists. Need to update stats.
 		puts "================="
 		puts "POSITION #{i + 1}. UPDATING SONG"
-		song = Song.find_by_id(entry["id"]["attributes"]["im:id"].to_i)
+		song = Song.find_by_id(songID)
 		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/videos?id=#{song.youtube_id}&key=#{youtube_api_key}&part=snippet,statistics").read)
 		puts "Youtube Video Title: " + youtube_result["items"][0]["snippet"]["title"]
 		song.youtube_views = youtube_result["items"][0]["statistics"]["viewCount"].to_i
@@ -88,5 +89,24 @@ for i in 0..(count - 1)
 		puts "Dislikes = " + song.youtube_dislikes.to_s
 		puts "================="
 	end
-	
+
+	# Check if entry exists in ChartItems table
+	ci = ChartItem.find_by_song_id(songID)
+	if (ci == nil)
+		puts "New Chart Entry " + (i + 1).to_s + ": " + songID.to_s
+		# Create new ChartItem
+		ci = ChartItem.new
+		ci.song_id = songID
+	end
+	ci.position = i + 1
+	if (i < 25)
+		ci.top25 += 1
+	end
+	if (i < 10)
+		ci.top10 += 1
+	end
+	if (i < 5)
+		ci.top5 += 1
+	end
+	ci.save	
 end
