@@ -20,4 +20,7 @@
 
 class Song < ApplicationRecord
   belongs_to :category
+  def fullName
+  	artist + " - " + name
+  end
 end
