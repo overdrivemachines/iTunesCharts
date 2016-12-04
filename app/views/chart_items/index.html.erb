@@ -5,8 +5,9 @@
 <table>
   <thead>
     <tr>
-      <th>Song</th>
       <th>Position</th>
+      <th>Image</th>
+      <th>Song</th>
       <th>Top5</th>
       <th>Top10</th>
       <th>Top25</th>
@@ -16,9 +17,16 @@
 
   <tbody>
     <% @chart_items.each do |chart_item| %>
+      <% song = chart_item.song %>
       <tr>
-        <td><%= chart_item.song %></td>
         <td><%= chart_item.position %></td>
+        <td><%= image_tag(song.image_url, alt: song.fullName) %></td>
+        <td>
+          <%= song.artist + " - " + song.name %><br>
+          <%= song.category.name %> <br>
+          Likes: <%= number_to_human(song.youtube_likes) %> Dislikes: <%= number_to_human(song.youtube_dislikes) %> <br>
+          Views: <%= number_to_human(song.youtube_views) %> <br>
+        </td>
         <td><%= chart_item.top5 %></td>
         <td><%= chart_item.top10 %></td>
         <td><%= chart_item.top25 %></td>
