@@ -9,7 +9,7 @@
 require 'open-uri'
 require 'json'
 
-count = 5
+count = 20
 youtube_api_key = "AIzaSyBCX3JOJlNp76w6b38jwgY3ksQcwHl7F70"
 entry = Hash.new
 query = ""

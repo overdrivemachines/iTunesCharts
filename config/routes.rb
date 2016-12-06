@@ -9,9 +9,11 @@
 #                 PATCH  /chart_items/:id(.:format)      chart_items#update
 #                 PUT    /chart_items/:id(.:format)      chart_items#update
 #                 DELETE /chart_items/:id(.:format)      chart_items#destroy
+#            root GET    /                               chart_items#index
 #
 
 Rails.application.routes.draw do
+  devise_for :users
   resources :chart_items
   root "chart_items#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
