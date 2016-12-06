@@ -1,10 +1,11 @@
 class ChartItemsController < ApplicationController
   before_action :set_chart_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /chart_items
   # GET /chart_items.json
   def index
-    @chart_items = ChartItem.all
+    @chart_items = ChartItem.all.order(:position)
   end
 
   # GET /chart_items/1
