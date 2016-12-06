@@ -41,7 +41,14 @@ for i in 0..(count - 1)
 		# Youtube
 		# Find Youtube video
 		query = entry["title"]["label"]
-		puts "Query: " + query
+		puts "Original Query: " + query
+		# remove accents
+		ActiveSupport::Inflector.transliterate(query)
+		# remove non-ascii characters
+		query.gsub!(/\P{ASCII}/, '')
+		# escape the URI
+		query = URI.escape(query)
+		puts "URL Friendly Query: " + query
 		# youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=#{query}&type=video&key=#{youtube_api_key}").read) 
 		youtube_result = JSON.parse(open("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=#{query}&type=video&key=#{youtube_api_key}").read) 
 		youtube_video = youtube_result["items"][0]
