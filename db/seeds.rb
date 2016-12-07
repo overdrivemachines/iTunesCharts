@@ -43,9 +43,9 @@ for i in 0..(count - 1)
 		query = entry["title"]["label"]
 		puts "Original Query: " + query
 		# remove accents
-		ActiveSupport::Inflector.transliterate(query)
-		# remove non-ascii characters
-		query.gsub!(/\P{ASCII}/, '')
+		# ActiveSupport::Inflector.transliterate(query)
+		# # remove non-ascii characters
+		# query.gsub!(/\P{ASCII}/, '')
 		# escape the URI
 		query = URI.escape(query)
 		puts "URL Friendly Query: " + query
