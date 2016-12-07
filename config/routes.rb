@@ -31,6 +31,7 @@
 #
 
 Rails.application.routes.draw do
+  resources :votes
   devise_for :users
   resources :chart_items
   root "chart_items#index"
