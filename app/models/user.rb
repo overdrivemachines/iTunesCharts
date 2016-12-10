@@ -23,9 +23,34 @@
 #
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+	# Include default devise modules. Others available are:
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable, :registerable,
+				 :recoverable, :rememberable, :trackable, :validatable,
+				 :confirmable
+
+	has_many :votes
+
+	# returns true if vote.likes is true
+	def likes?(song)
+		vote = Vote.where(:user_id => id).where(:song_id => song.id)[0]
+		if (vote != nil)
+			if (vote.like)
+				return true
+			end
+		end
+		return false
+	end
+
+	# returns true if vote.likes is false
+	def dislikes?(song)
+		vote = Vote.where(:user_id => id).where(:song_id => song.id)[0]
+		if (vote != nil)
+			if (vote.like == false)
+				return true
+			end
+		end
+
+		return false		
+	end
 end
