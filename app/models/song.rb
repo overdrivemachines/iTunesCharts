@@ -19,8 +19,40 @@
 #
 
 class Song < ApplicationRecord
-  belongs_to :category
-  def fullName
-  	artist + " - " + name
-  end
+	belongs_to :category
+	has_many :votes
+
+	def fullName
+		artist + " - " + name
+	end
+
+	def liked_by(user)
+		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
+		# Check if vote already exists in DB
+		if (vote == nil)
+			# Create new vote
+			vote = Vote.create(song_id: id, user_id: user.id, like: true)
+		else
+			vote.like = true
+			vote.save
+		end
+	end
+
+	def disliked_by(user)
+		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
+		# Check if vote already exists in DB
+		if (vote == nil)
+			# Create new vote
+			vote = Vote.create(song_id: id, user_id: user.id, like: false)
+		else
+			vote.like = false
+			vote.save
+		end
+	end
+
+	def removevote_by(user)
+		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
+		vote.destroy
+	end
+
 end
