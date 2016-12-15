@@ -15,8 +15,8 @@
   <tbody>
     <% @votes.each do |vote| %>
       <tr>
-        <td><%= vote.song %></td>
-        <td><%= vote.user %></td>
+        <td><%= vote.song.fullName %></td>
+        <td><%= vote.user.email %></td>
         <td><%= vote.like %></td>
         <td><%= link_to 'Show', vote %></td>
         <td><%= link_to 'Edit', edit_vote_path(vote) %></td>

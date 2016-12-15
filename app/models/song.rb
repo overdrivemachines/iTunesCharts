@@ -31,11 +31,12 @@ class Song < ApplicationRecord
 		# Check if vote already exists in DB
 		if (vote == nil)
 			# Create new vote
-			vote = Vote.create(song_id: id, user_id: user.id, like: true)
+			vote = Vote.new(song_id: id, user_id: user.id, like: true)
 		else
 			vote.like = true
-			vote.save
 		end
+
+		vote.save
 	end
 
 	def disliked_by(user)
@@ -43,11 +44,12 @@ class Song < ApplicationRecord
 		# Check if vote already exists in DB
 		if (vote == nil)
 			# Create new vote
-			vote = Vote.create(song_id: id, user_id: user.id, like: false)
+			vote = Vote.new(song_id: id, user_id: user.id, like: false)
 		else
 			vote.like = false
-			vote.save
 		end
+
+		vote.save
 	end
 
 	def removevote_by(user)

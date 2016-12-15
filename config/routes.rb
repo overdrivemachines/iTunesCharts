@@ -1,6 +1,14 @@
 # == Route Map
 #
 #                   Prefix Verb   URI Pattern                       Controller#Action
+#                    votes GET    /votes(.:format)                  votes#index
+#                          POST   /votes(.:format)                  votes#create
+#                 new_vote GET    /votes/new(.:format)              votes#new
+#                edit_vote GET    /votes/:id/edit(.:format)         votes#edit
+#                     vote GET    /votes/:id(.:format)              votes#show
+#                          PATCH  /votes/:id(.:format)              votes#update
+#                          PUT    /votes/:id(.:format)              votes#update
+#                          DELETE /votes/:id(.:format)              votes#destroy
 #         new_user_session GET    /users/sign_in(.:format)          devise/sessions#new
 #             user_session POST   /users/sign_in(.:format)          devise/sessions#create
 #     destroy_user_session DELETE /users/sign_out(.:format)         devise/sessions#destroy
