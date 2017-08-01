@@ -117,3 +117,16 @@ for i in 0..(count - 1)
 	end
 	ci.save	
 end
+
+
+user = User.new
+user.email = "a@a.com"
+random_password = "2private"
+user.password = random_password
+user.password_confirmation = random_password
+user.firstname = "Dipen"
+user.lastname = "Chauhan"
+user.skip_confirmation!
+user.save(validate: false) # Required for first user
+user.save
+puts "Created User #{user.firstname} #{user.lastname} #{user.email}:#{user.password}"
