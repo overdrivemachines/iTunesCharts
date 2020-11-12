@@ -1,1 +1,0 @@
-json.array! @chart_items, partial: 'chart_items/chart_item', as: :chart_item

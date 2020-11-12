@@ -2,16 +2,16 @@
 #
 # Table name: chart_items
 #
-#  id         :integer          not null, primary key
-#  song_id    :integer
-#  position   :integer
-#  top5       :integer          default(0)
-#  top10      :integer          default(0)
-#  top25      :integer          default(0)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  position    :integer
+#  song_id     :integer          not null
+#  top10_count :integer
+#  top25_count :integer
+#  top5_count  :string
+#  integer     :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
-
 class ChartItem < ApplicationRecord
   belongs_to :song
 end

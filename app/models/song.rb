@@ -2,59 +2,17 @@
 #
 # Table name: songs
 #
-#  id                :integer          not null, primary key
-#  name              :string
-#  artist            :string
-#  album             :string
-#  category_id       :integer
-#  image_url         :string
-#  preview_audio_url :string
-#  release_date      :date
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  youtube_id        :string
-#  youtube_views     :integer
-#  youtube_likes     :integer
-#  youtube_dislikes  :integer
+#  id               :integer          not null, primary key
+#  album            :string
+#  artist           :string
+#  name             :string
+#  release_date     :string
+#  youtube_likes    :string
+#  youtube_dislikes :string
+#  youtube_id       :string
+#  youtube_views    :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
-
 class Song < ApplicationRecord
-	belongs_to :category
-	has_many :votes
-
-	def fullName
-		artist + " - " + name
-	end
-
-	def liked_by(user)
-		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
-		# Check if vote already exists in DB
-		if (vote == nil)
-			# Create new vote
-			vote = Vote.new(song_id: id, user_id: user.id, like: true)
-		else
-			vote.like = true
-		end
-
-		vote.save
-	end
-
-	def disliked_by(user)
-		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
-		# Check if vote already exists in DB
-		if (vote == nil)
-			# Create new vote
-			vote = Vote.new(song_id: id, user_id: user.id, like: false)
-		else
-			vote.like = false
-		end
-
-		vote.save
-	end
-
-	def removevote_by(user)
-		vote = Vote.where(:user_id => user.id).where(:song_id => id)[0]
-		vote.destroy
-	end
-
 end

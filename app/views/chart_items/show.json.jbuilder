@@ -1,1 +1,0 @@
-json.partial! "chart_items/chart_item", chart_item: @chart_item
